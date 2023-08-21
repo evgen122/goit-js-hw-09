@@ -1,18 +1,32 @@
-// Описаний в документації
 import flatpickr from 'flatpickr';
-// Додатковий імпорт стилів
 import 'flatpickr/dist/flatpickr.min.css';
+import Notiflix from 'notiflix';
 
 const elements = {
   btnStart: document.querySelector('button[data-start]'),
   inputData: document.querySelector('#datetime-picker'),
   divTimer: document.querySelector('div.timer'),
-  //   divField: document.querySelector('div.field'),
+  divField: document.querySelectorAll('.field'),
+  divValue: document.querySelectorAll('.value'),
   dataDays: document.querySelector('[data-days]'),
   dataHours: document.querySelector('[data-hours]'),
   dataMinutes: document.querySelector('[data-minutes]'),
   dataSeconds: document.querySelector('[data-seconds]'),
 };
+
+elements.divTimer.style.display = 'flex';
+elements.divTimer.style.gap = '30px';
+
+elements.divField.forEach(element => {
+  element.style.width = '50px';
+  element.style.textAlign = 'center';
+});
+
+elements.divValue.forEach(element => {
+  element.style.fontSize = '30px';
+});
+
+let timeLeft;
 
 const options = {
   enableTime: true,
@@ -20,41 +34,27 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    console.log(selectedDates[0]);
+    const date = new Date();
+
+    const newDate = new Date(elements.inputData.value);
+
+    timeLeft = newDate.getTime() - date.getTime();
+
+    if (timeLeft <= 0) {
+      Notiflix.Notify.warning('Please choose a date in the future');
+    } else {
+      elements.btnStart.disabled = false;
+    }
   },
 };
 
-elements.divTimer.style.display = 'flex';
-
-// elements.divTimer.childNodes.style.display = 'flex';
-// elements.divTimer.childNodes.style.flexDirection = 'column';
-
-// elements.divField.style.display = 'flex';
-// elements.divField.style.flexDirection = 'column';
-
 elements.btnStart.disabled = true;
-// elements.btnStart.disabled = false;
 
 elements.btnStart.addEventListener('click', timerStart);
 
-// function timerStart() {
-const date = new Date();
-console.log('date', date);
-
-const newDate = new Date(elements.inputData.value);
-console.log('newDate', newDate);
-
-let timeLeft = newDate.getTime() - date.getTime();
-console.log(timeLeft);
-
-if (timeLeft <= 0) {
-  window.alert('Please choose a date in the future');
-} else {
-  elements.btnStart.disabled = false;
-  timerStart();
-}
-
 function timerStart() {
+  elements.btnStart.disabled = true;
+
   const idSetInterval = setInterval(() => {
     const timer = convertMs(timeLeft);
 
