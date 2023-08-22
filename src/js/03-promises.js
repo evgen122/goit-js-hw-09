@@ -10,6 +10,7 @@ const elements = {
 elements.btnSubmit.addEventListener('click', handleClick);
 
 function handleClick() {
+  elements.btnSubmit.preventDefault();
   let delay = Number(elements.firstDelay.value);
   const step = Number(elements.delayStep.value);
   const amount = Number(elements.amount.value);
@@ -23,12 +24,11 @@ function handleClick() {
 
 function createPromise(position, delay) {
   const promise = new Promise((resolve, reject) => {
-    const shouldResolve = Math.random() > 0.3;
-
     // console.log('position', position);
     // console.log('delay', delay);
 
     setTimeout(() => {
+      const shouldResolve = Math.random() > 0.3;
       if (shouldResolve) {
         resolve({ position, delay });
         // Fulfill
@@ -42,11 +42,11 @@ function createPromise(position, delay) {
   promise
     .then(({ position, delay }) => {
       Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-      // console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
     })
     .catch(({ position, delay }) => {
       Notiflix.Notify.warning(`❌ Rejected promise ${position} in ${delay}ms`);
-      // console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+      console.log(`❌ Rejected promise ${position} in ${delay}ms`);
     });
 }
 
