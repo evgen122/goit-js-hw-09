@@ -24,7 +24,7 @@ function colorStop() {
   //   console.log(colorStop);
   elements.btnStart.disabled = false;
   elements.btnStop.disabled = true;
-  clearInterval(idInterval);
+  const stopInterval = clearInterval(idInterval);
 }
 
 function getRandomHexColor() {
