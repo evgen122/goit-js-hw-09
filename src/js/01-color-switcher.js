@@ -15,7 +15,7 @@ function colorStart() {
   elements.btnStart.disabled = true;
   elements.btnStop.disabled = false;
 
-  idInterval = setInterval(() => {
+  const idInterval = setInterval(() => {
     elements.body.style.backgroundColor = getRandomHexColor();
   }, 1000);
 }
