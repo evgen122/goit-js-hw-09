@@ -9,8 +9,8 @@ const elements = {
 
 elements.btnSubmit.addEventListener('click', handleClick);
 
-function handleClick() {
-  elements.btnSubmit.preventDefault();
+function handleClick(event) {
+  event.preventDefault();
   let delay = Number(elements.firstDelay.value);
   const step = Number(elements.delayStep.value);
   const amount = Number(elements.amount.value);
@@ -25,7 +25,7 @@ function handleClick() {
 function createPromise(position, delay) {
   const promise = new Promise((resolve, reject) => {
     // console.log('position', position);
-    // console.log('delay', delay);
+    console.log('delay', delay);
 
     setTimeout(() => {
       const shouldResolve = Math.random() > 0.3;
@@ -36,10 +36,11 @@ function createPromise(position, delay) {
         reject({ position, delay });
         // Reject
       }
+      console.log('delay-1', delay);
     }, delay);
   });
 
-  promise
+  return promise
     .then(({ position, delay }) => {
       Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
       console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
