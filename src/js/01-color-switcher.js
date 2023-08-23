@@ -4,6 +4,8 @@ const elements = {
   body: document.querySelector('body'),
 };
 
+let idInterval;
+
 elements.btnStart.addEventListener('click', colorStart);
 elements.btnStop.addEventListener('click', colorStop);
 
@@ -15,7 +17,7 @@ function colorStart() {
   elements.btnStart.disabled = true;
   elements.btnStop.disabled = false;
 
-  let idInterval = setInterval(() => {
+  idInterval = setInterval(() => {
     elements.body.style.backgroundColor = getRandomHexColor();
   }, 1000);
 }
