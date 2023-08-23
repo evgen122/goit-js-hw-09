@@ -15,7 +15,7 @@ function colorStart() {
   elements.btnStart.disabled = true;
   elements.btnStop.disabled = false;
 
-  const idInterval = setInterval(() => {
+  let idInterval = setInterval(() => {
     elements.body.style.backgroundColor = getRandomHexColor();
   }, 1000);
 }
@@ -24,7 +24,7 @@ function colorStop() {
   //   console.log(colorStop);
   elements.btnStart.disabled = false;
   elements.btnStop.disabled = true;
-  const stopInterval = clearInterval(idInterval);
+  clearInterval(idInterval);
 }
 
 function getRandomHexColor() {
