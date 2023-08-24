@@ -54,7 +54,7 @@ elements.btnStart.addEventListener('click', timerStart);
 
 function timerStart() {
   elements.btnStart.disabled = true;
-
+  elements.inputData.disabled = true;
   const idSetInterval = setInterval(() => {
     const timer = convertMs(timeLeft);
 
@@ -67,6 +67,7 @@ function timerStart() {
 
     if (timeLeft <= 0) {
       clearInterval(idSetInterval);
+      elements.inputData.disabled = false;
     }
   }, 1000);
 }
